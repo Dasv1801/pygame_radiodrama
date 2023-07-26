@@ -1,52 +1,17 @@
-# Steg 0 - importbiten.
 import pygame
-import pygame.mixer
 
-import random
-import time
-import webbrowser
-import sys
-from pydub import AudioSegment
-import wave
-import pyaudio
-import soundfile
-
-# Steg 1 - in it.
 pygame.init()
-pygame.mixer.init()
 
-# Steg 2 - Skärmen
-screen_width, screen_height = 800, 600
-screen = pygame.display.set_mode((screen_width, screen_height))
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
-# Steg 3 - Startsida musik
-Startsida_musik = pygame.mixer.Sound ("startsida_musik.wav")
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# Steg 4 - Namnval
-pygame.display.set_caption("Välj ett namn")
-font = pygame.font.Font(None, 36)
-namnlista = ["Margareta", "Ingrid", "Birgitta", "Karin", "Anna", "Elisabeth"]
-
-#
-def startsida():
-    
-
-def pick_name():
-    for i, namn in enumerate(namnlista):
-        text = font.render(namn, true, (255, 255, 255))
-        window.blit(text, (100, 150 + i*50))
-
-# Steg 5 - Spel-loopen
 run = True
 while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
 
-        # Här kan du lägga till spellogik och uppdatera spelets tillstånd
-        startsida():
-        # Rensar fönstret och ritas på nytt
-        screen.fill((0, 0, 0))  # Bakgrundsfärgen (svart i detta exempel)
-        pygame.display.flip()
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      run = False
 
 pygame.quit()
