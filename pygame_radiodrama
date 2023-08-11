@@ -41,7 +41,7 @@ screen.fill(rect_color, pygame.Rect(rect_position, rect_size))
 
 pygame.display.flip()
 
-# Spel loopen-------------------------------------------------------
+# Spel loopen----------------------------------------------------
 run = True
 while run:
 
@@ -60,9 +60,9 @@ while run:
   pygame.draw.rect(screen, rect_color3, rect3)
   
   # Lägg till text i varje rektangel
-  text1 = font.render("Rektangel 1", True, (255, 255, 255))
-  text2 = font.render("Rektangel 2", True, (255, 255, 255))
-  text3 = font.render("Rektangel 3", True, (255, 255, 255))
+  text1 = font.render("Rektangel 1 \n Val 1", True, (255, 255, 255))
+  text2 = font.render("Rektangel 2 \n Val 2", True, (255, 255, 255))
+  text3 = font.render("Rektangel 3 \n Val 3", True, (255, 255, 255))
   
   screen.blit(text1, (rect1.x + 225, rect1.y + 10))
   screen.blit(text2, (rect2.x + 225, rect2.y + 10))
