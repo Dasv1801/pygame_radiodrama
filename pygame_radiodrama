@@ -7,25 +7,41 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
 # Skapa en rektangel genom att fylla en yta med färg
 rect_color = (150, 0, 0) # Röd färg (RGB-format)
 rect_position = (100, 100) # position för rektangelns övre vänster hörn
 rect_size = (600, 100) # Storlek på rektangeln
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Definiera rektanglar
 rect1 = pygame.Rect(100, 100, 600, 100) # X, Y, breed, höjd
 rect2 = pygame.Rect(100, 250, 600, 100)
 rect3 = pygame.Rect(100, 400, 600, 100)
 
-# röd färg till rektanglarna
-rect_color1 = (255, 0, 0)
+# Skapa en font för texten
+font = pygame.font.Font(None, 36)
+
+# Starta med en helt transparent färg
+rect_color1 = (0, 0, 0)
+rect_color2 = (0, 0, 0)
+rect_color3 = (0, 0, 0)
+
+# Röd färg till rektanglarna
+rect_color1 = (150, 0, 0)
+rect_color2 = (150, 0, 0)
+rect_color3 = (150, 0, 0)
+
+# Hastighet för "fade in" på rektangelerna
+fade_speed1 = 3000
+fade_speed2 = 6000
+fade_speed3 = 9000
 
 screen.fill(rect_color, pygame.Rect(rect_position, rect_size))
 
 pygame.display.flip()
 
+# Spel loopen----------------------------------------------------
 run = True
 while run:
 
@@ -34,12 +50,33 @@ while run:
       run = False
       
   screen.fill ((0, 0, 0)) # rensa skärmen med svart färg
+  
+  #if rect_color1[0] < 150:
+    #rect_color1 = (rect_color[0] + fade_speed, 0, 0)
       
   #Rita rektanglarna
   pygame.draw.rect(screen, rect_color1, rect1)
-  pygame.draw.rect(screen, rect_color1, rect2)
-  pygame.draw.rect(screen, rect_color1, rect3)
-      
-  pygame.display.flip() # Uppdatera skärmen
+  pygame.draw.rect(screen, rect_color2, rect2)
+  pygame.draw.rect(screen, rect_color3, rect3)
+  
+  # Lägg till text i varje rektangel
+  text1 = font.render("Rektangel 1", True, (255, 255, 255))
+  text2 = font.render("Rektangel 2", True, (255, 255, 255))
+  text3 = font.render("Rektangel 3", True, (255, 255, 255))
+  
+  screen.blit(text1, (rect1.x + 225, rect1.y + 10))
+  screen.blit(text2, (rect2.x + 225, rect2.y + 10))
+  screen.blit(text3, (rect3.x + 225, rect3.y + 10))
+  
+  # Gradvis ändra färgvärdena för att fade:a in
+  if rect_color1[0] < 150:
+    rectcolor1 = (rect_color[0] + fade_speed1, 0, 0)
+  if rect_color2[0] < 150:
+    rect_color2[0] = (rect_color2[0] + fade_speed2, 0, 0)
+  if rect_color3[0] < 150:
+    rect_color3[0] = (rect_color3[0] + fade_speed3, 0 ,0)
+  
+  # Uppdatera skärmen
+  pygame.display.flip()
 
 pygame.quit()
