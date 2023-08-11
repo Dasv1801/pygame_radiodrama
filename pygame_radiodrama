@@ -41,7 +41,7 @@ screen.fill(rect_color, pygame.Rect(rect_position, rect_size))
 
 pygame.display.flip()
 
-# Spel loopen----------------------------------------------------
+# Spel loopen-------------------------------------------------------
 run = True
 while run:
 
