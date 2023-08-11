@@ -7,11 +7,37 @@ SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# Skapa en rektangel genom att fylla en yta med färg
+rect_color = (150, 0, 0) # Röd färg (RGB-format)
+rect_position = (100, 100) # position för rektangelns övre vänster hörn
+rect_size = (600, 100) # Storlek på rektangeln
+
+# Definiera rektanglar
+rect1 = pygame.Rect(100, 100, 600, 100) # X, Y, breed, höjd
+rect2 = pygame.Rect(100, 250, 600, 100)
+rect3 = pygame.Rect(100, 400, 600, 100)
+
+# röd färg till rektanglarna
+rect_color1 = (255, 0, 0)
+
+screen.fill(rect_color, pygame.Rect(rect_position, rect_size))
+
+pygame.display.flip()
+
 run = True
 while run:
 
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       run = False
+      
+  screen.fill ((0, 0, 0)) # rensa skärmen med svart färg
+      
+  #Rita rektanglarna
+  pygame.draw.rect(screen, rect_color1, rect1)
+  pygame.draw.rect(screen, rect_color1, rect2)
+  pygame.draw.rect(screen, rect_color1, rect3)
+      
+  pygame.display.flip() # Uppdatera skärmen
 
 pygame.quit()
