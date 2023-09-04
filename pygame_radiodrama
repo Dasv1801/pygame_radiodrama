@@ -1,82 +1,157 @@
 import pygame
 import time
 import random
+import sys
 
+# Initiera pygame
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+# Skapa ett fönster
+screen_width = 800
+screen_height = 600
 
-# Skapa en rektangel genom att fylla en yta med färg
-rect_color = (150, 0, 0) # Röd färg (RGB-format)
-rect_position = (100, 100) # position för rektangelns övre vänster hörn
-rect_size = (600, 100) # Storlek på rektangeln
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Mitt spel")
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# Load PNG-pictures
+introbild = pygame.image.load("pictures/bluey.png")
 
-# Definiera rektanglar
-rect1 = pygame.Rect(100, 100, 600, 100) # X, Y, breed, höjd
-rect2 = pygame.Rect(100, 250, 600, 100)
-rect3 = pygame.Rect(100, 400, 600, 100)
+# Def----------------------------------------------------------
+# Fade out screen to black
+def fade_out (width, height):
+    fade_surface = pygame.Surface((width, height))
+    fade_surface.fill((0, 0, 0))
+    for alpha in range(0, 300):
+        fade_surface.set_alpha(alpha)
+        screen.blit(fade_surface, (0,0))
+        pygame.display.update()
+        pygame.time.delay(50)
+
+# Fade out screen to black
+def fade_in (width, height):
+    fade_surface = pygame.Surface((width, height))
+    fade_surface.fill((0, 0, 0))
+    for alpha in range(0, 300):
+        fade_surface.set_alpha(255 - alpha)
+        screen.blit(fade_surface, (0,0))
+        pygame.display.update()
+        pygame.time.delay(50)
+def draw_rectangles_and_text():
+    # Rita rektanglarna med den definierade färgen
+    pygame.draw.rect(screen, rect_color1, rect1)
+    pygame.draw.rect(screen, rect_color1, rect2)
+    pygame.draw.rect(screen, rect_color1, rect3)
+
+    # Lägg till text i varje rektangel
+    text1 = font.render("Rektangel 1 \n Val 1", True, (255, 255, 255))
+    text2 = font.render("Rektangel 2 \n Val 2", True, (255, 255, 255))
+    text3 = font.render("Rektangel 3 \n Val 3", True, (255, 255, 255))
+
+    # Centrera texten vertikalt i rektanglarna
+    text_height = text1.get_height()
+    screen.blit(text1, (rect1.x + (rect1.width - text1.get_width()) / 2, rect1.y + (rect1.height - text_height) / 2))
+    screen.blit(text2, (rect2.x + (rect2.width - text2.get_width()) / 2, rect2.y + (rect2.height - text_height) / 2))
+    screen.blit(text3, (rect3.x + (rect3.width - text3.get_width()) / 2, rect3.y + (rect3.height - text_height) / 2))
+def scene():
+    # Ladda in PNG-bilden
+    introbild = pygame.image.load("pictures/bluey.png")
+    introbild = pygame.transform.scale(introbild, (screen_width, screen_height))
+
+    # Rita bakgrundsbilden på skärmen
+    screen.blit(introbild, (0, 0))
+    
+    # anropa funktionen för att rita rektanglar och text
+    draw_rectangles_and_text()
+    
+    # Uppdatera skärmen
+    pygame.display.flip()
+
+#------------------------------------------------------------
+# Ladda in ljud
+pygame.mixer.music.load("music/scary_music.mp3")
 
 # Skapa en font för texten
 font = pygame.font.Font(None, 36)
 
-# Starta med en helt transparent färg
-rect_color1 = (0, 0, 0)
-rect_color2 = (0, 0, 0)
-rect_color3 = (0, 0, 0)
+# Definiera rektanglar
+rect1 = pygame.Rect(100, 100, 600, 100)
+rect2 = pygame.Rect(100, 250, 600, 100)
+rect3 = pygame.Rect(100, 400, 600, 100)
 
-# Röd färg till rektanglarna
-rect_color1 = (150, 0, 0)
-rect_color2 = (150, 0, 0)
-rect_color3 = (150, 0, 0)
+# Färg för rektanglarna
+rect_color1 = (150, 0, 0)  # Röd färg
 
-# Hastighet för "fade in" på rektangelerna
-fade_speed1 = 3000
-fade_speed2 = 6000
-fade_speed3 = 9000
+# Variabel för att hålla koll på vilket val som gjorts
+current_choice = None
 
-screen.fill(rect_color, pygame.Rect(rect_position, rect_size))
-
-pygame.display.flip()
-
-# Spel loopen----------------------------------------------------
+# Spel-loopen
 run = True
 while run:
+    current_time = pygame.time.get_ticks()
 
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      run = False
-      
-  screen.fill ((0, 0, 0)) # rensa skärmen med svart färg
-  
-  #if rect_color1[0] < 150:
-    #rect_color1 = (rect_color[0] + fade_speed, 0, 0)
-      
-  #Rita rektanglarna
-  pygame.draw.rect(screen, rect_color1, rect1)
-  pygame.draw.rect(screen, rect_color2, rect2)
-  pygame.draw.rect(screen, rect_color3, rect3)
-  
-  # Lägg till text i varje rektangel
-  text1 = font.render("Rektangel 1 \n Val 1", True, (255, 255, 255))
-  text2 = font.render("Rektangel 2 \n Val 2", True, (255, 255, 255))
-  text3 = font.render("Rektangel 3 \n Val 3", True, (255, 255, 255))
-  
-  screen.blit(text1, (rect1.x + 225, rect1.y + 10))
-  screen.blit(text2, (rect2.x + 225, rect2.y + 10))
-  screen.blit(text3, (rect3.x + 225, rect3.y + 10))
-  
-  # Gradvis ändra färgvärdena för att fade:a in
-  if rect_color1[0] < 150:
-    rectcolor1 = (rect_color[0] + fade_speed1, 0, 0)
-  if rect_color2[0] < 150:
-    rect_color2[0] = (rect_color2[0] + fade_speed2, 0, 0)
-  if rect_color3[0] < 150:
-    rect_color3[0] = (rect_color3[0] + fade_speed3, 0 ,0)
-  
-  # Uppdatera skärmen
-  pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            if rect1.collidepoint(mouse_x, mouse_y) and current_choice is None:
+                print("Val 1 gjordes")
+                current_choice = 1
+            elif rect2.collidepoint(mouse_x, mouse_y) and current_choice is None:
+                print("Val 2 gjordes")
+                current_choice = 2
+                fade_out(screen_width, screen_height)
+            elif rect3.collidepoint(mouse_x, mouse_y) and current_choice is None:
+                print("Val 3 gjordes")
+                current_choice = 3
+                # Spela ljudfil
+                pygame.mixer.music.play()
+
+    # Rita bakgrundsbilden på skärmen
+    screen.blit(introbild, (0, 0))
+
+    # Rita rektanglarna med den definierade färgen
+    pygame.draw.rect(screen, rect_color1, rect1)
+    pygame.draw.rect(screen, rect_color1, rect2)
+    pygame.draw.rect(screen, rect_color1, rect3)
+
+    # Lägg till text i varje rektangel
+    text1 = font.render("Rektangel 1 \n Val 1", True, (255, 255, 255))
+    text2 = font.render("Rektangel 2 \n Val 2", True, (255, 255, 255))
+    text3 = font.render("Rektangel 3 \n Val 3", True, (255, 255, 255))
+
+    # Centrera texten vertikalt i rektanglarna
+    text_height = text1.get_height()
+    screen.blit(text1, (rect1.x + (rect1.width - text1.get_width()) / 2, rect1.y + (rect1.height - text_height) / 2))
+    screen.blit(text2, (rect2.x + (rect2.width - text2.get_width()) / 2, rect2.y + (rect2.height - text_height) / 2))
+    screen.blit(text3, (rect3.x + (rect3.width - text3.get_width()) / 2, rect3.y + (rect3.height - text_height) / 2))
+
+    # Uppdatera skärmen
+    pygame.display.flip()
+
+# Rita bakgrundsbild på skärmen
+screen.blit(introbild, (0, 0))
+
+if current_choice is not None:
+    # Rensa skärmen genom att rita en svart rektangel över hela skärmen
+    pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, screen_width, screen_height))
+    if current_choice == 1:
+        # Här kan du ändra rektanglarna och texten för val 1
+        pass
+    elif current_choice == 2:
+        # Här kan du ändra rektanglarna och texten för val 2
+        pass
+    elif current_choice == 3:
+        # Här kan du ändra rektanglarna och texten för val 3
+        pass
+        # Återställ val efter att ha visat det nya innehållet
+        current_choice = None
+
+    else:
+        # om inget val har gjorts, rita de vanliga rektanglarna och texten
+        draw_rectangles_and_text()
+    # Uppdatera skärmen
+    pygame.display.flip()
 
 pygame.quit()
+sys.exit()
