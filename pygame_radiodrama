@@ -153,5 +153,35 @@ if current_choice is not None:
     # Uppdatera skärmen
     pygame.display.flip()
 
+#----------------------------------------------------------------------------------------------------------
+# ladda in ljudfiler i pygame
+backgroundsound = pygame.mixer.Sound("background_sound.wav")
+backgroundsmusic = pygame.mixer.Sound("background_music.wav")
+dialog = pygame.mixer.Sound("dialog.wav")
+slutlåt_scen_1 = pygame.mixer.Sound("slutlåt_scen_1.wav")
+
+# Ladda in Bakgrundsvideo
+video = pygame.movie.Movie("din_videofil.mp4")
+
+# Skapar ett Pygame-fönster där videon ska visas.
+skärm = pygame.display.set_mode(video.get_size())
+pygame.display.set_caption("Videospelning i Pygame")
+
+# Scen 1 - "namn på scenen"
+def namn_på_scenen():
+    # Bakgrundsvideo
+        video.set_display(skärm)
+        video.play()
+    # Backgroundsound
+        backgroundsound.play()
+    # Backgroundsmusic
+        backgroundsound.play()
+    # Dialog
+        dialog.play() 
+    # Slutmusik för scenen
+        slutlåt_scen_1.play()
+
+#------------------------------------------------------------------------------------------------------------
+
 pygame.quit()
 sys.exit()
