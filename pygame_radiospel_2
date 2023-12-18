@@ -1,0 +1,56 @@
+import pygame
+import sys
+import time
+
+# Initialisera Pygame
+pygame.init()
+
+# Ange spelets fönsterdimensioner
+width, height = 800, 600
+
+# Skapa fönstret
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Mitt första Pygame-spel")
+
+# Färger
+red = (255, 0, 0)
+white = (255, 255, 255)
+black = (0, 0, 0)
+
+# Skapa rektanglar
+rect1 = pygame.Rect(50, 100, 700, 50)
+rect2 = pygame.Rect(50, 200, 700, 50)
+rect3 = pygame.Rect(50, 300, 700, 50)
+
+# Skapa en font
+font = pygame.font.Font(None, 36)
+
+# Huvudspelloppslukare
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Rensa skärmen med svart färg
+    screen.fill(black)
+
+    # Rita rektanglar på skärmen
+    pygame.draw.rect(screen, red, rect1)
+    pygame.draw.rect(screen, red, rect2)
+    pygame.draw.rect(screen, red, rect3)
+
+    # Lägg till text på den röda rektangeln
+    text1 = font.render("Min text här", True, white)
+    screen.blit(text1, (rect1.x + 10, rect1.y + 10))
+    text2 = font.render("Min text här 2", True, white)
+    screen.blit(text2, (rect2.x + 10, rect2.y + 10))
+    text3 = font.render("Min text här 3", True, white)
+    screen.blit(text3, (rect2.x + 10, rect3.y + 10))
+
+    # Uppdatera fönstret
+    pygame.display.flip()
+
+# Avsluta Pygame
+pygame.quit()
+sys.exit() 
